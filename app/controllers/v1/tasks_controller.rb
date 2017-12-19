@@ -19,6 +19,7 @@ class V1::TasksController < ApplicationController
     task = Task.find_by(id: params[:id])
     task.text = params[:text] || task.text
     task.completed = params[:completed] || task.completed
+    task.save
     render json: task.as_json
   end
 
