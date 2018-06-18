@@ -18,6 +18,7 @@ while true
 
     response = Unirest.get("http://localhost:3000/api/tasks")
     tasks = response.body
+    
     pp tasks
 
   elsif input_option == "2"
@@ -30,6 +31,7 @@ while true
                             parameters: {text: input_text}
                             )
     task = response.body
+
     pp task
 
   elsif input_option == "3"
@@ -39,12 +41,14 @@ while true
 
     response = Unirest.get("http://localhost:3000/api/tasks/#{task_id}")
     task = response.body
+
     pp task
 
   elsif input_option == "4"
 
     print "Enter a task id to update: "
     task_id = gets.chomp
+
     response = Unirest.get("http://localhost:3000/api/tasks/#{task_id}")
 
     task = response.body
@@ -60,6 +64,7 @@ while true
 
     response = Unirest.patch("http://localhost:3000/api/tasks/#{task_id}", parameters: params)
     task = response.body
+
     pp task
 
   elsif input_option == "5"
@@ -68,6 +73,7 @@ while true
     task_id = gets.chomp
 
     response = Unirest.delete("http://localhost:3000/api/tasks/#{task_id}")
+
     pp response.body
 
   elsif input_option == "q"
