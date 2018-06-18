@@ -1,4 +1,4 @@
-class V1::TasksController < ApplicationController
+class Api::TasksController < ApplicationController
   def index
     tasks = Task.all
     render json: tasks.as_json
