@@ -1,29 +1,21 @@
 /* global Vue, VueRouter, axios */
-
 var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      tasks: [
-              {
-                text: "Take out papers", 
-                completed: false
-              },
-              {
-                text: "Take out the trask", 
-                completed: false
-              },
-              {
-                text: "spend some spending cash", 
-                completed: false
-              }
-              ],
+      tasks: [],
       newTask: {
                 text: ""
                 }
     };
   },
-  created: function() {},
+  created: function() {
+    axios
+    .get('/api/tasks')
+    .then(function(response) {
+      this.tasks = response.data;
+    }.bind(this));
+  },
   methods: {
     addTask: function() {
       var tempTask = {
@@ -36,10 +28,31 @@ var HomePage = {
         this.newTask.text = "";
       }
     },
-    markComplete: function(inputTask) {
-      var indexOfTask = this.tasks.indexOf(inputTask);
-      this.tasks.splice(indexOfTask, 1);
+    toggleComplete: function(inputTask) {
+      inputTask.completed = !inputTask.completed;
+    },
+
+    numberOfIncompleteTasks: function() {
+      var count = 0;
+
+      this.tasks.forEach(function(task) {
+        if ( !task.completed ) {
+        count++;
+        }
+      });
+      return count;
+    },
+
+    deleteCompleted: function() {
+      var incompleteTasks = [];
+      this.tasks.forEach(function(task) {
+        if (!task.completed) {
+        incompleteTasks.push(task);
+      }
+      });
+      this.tasks = incompleteTasks;
     }
+
   },
   computed: {}
 };
