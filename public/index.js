@@ -18,15 +18,20 @@ var HomePage = {
   },
   methods: {
     addTask: function() {
+
+    if (this.newTask.text) {
       var tempTask = {
                       text: this.newTask.text,
                       completed: false
                       };
 
-      if (this.newTask.text) {
-        this.tasks.push(tempTask);
-        this.newTask.text = "";
-      }
+      axios
+      .post('/api/tasks', tempTask)
+      .then(function(response) {
+        this.tasks.push(response.data);
+        
+      }.bind(this));
+    }
     },
     toggleComplete: function(inputTask) {
       inputTask.completed = !inputTask.completed;
@@ -52,6 +57,7 @@ var HomePage = {
       });
       this.tasks = incompleteTasks;
     }
+
 
   },
   computed: {}

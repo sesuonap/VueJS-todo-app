@@ -24,7 +24,7 @@
     <h4> Incomplete Tasks: {{ numberOfIncompleteTasks() }} </h4>
 
     <ul>
-      <li v-for="task in tasks" v-on:click="toggleComplete(task)" v-bind:class="{strike: task.completed}">{{ task.text }}</li>
+      <li v-for="task in tasks" v-bind:class="{strike: task.completed}"><span v-on:click="toggleComplete(task)">{{ task.text }}</span> <button>Delete Task</button></li>
     </ul>
 
     <button v-on:click="deleteCompleted()">Delete Completed Tasks </button>
